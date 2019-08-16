@@ -51,6 +51,11 @@ class ServicelistSearch extends Servicelist
 		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+             'pagination' => [
+                 'forcePageParam' => false,
+                 'pageSizeParam' => false,
+                'pageSize' => 5
+            ]
         ]);
 
         $this->load($params);

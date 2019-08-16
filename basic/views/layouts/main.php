@@ -28,44 +28,46 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-		//Yii::$app->sethomeUrl('/'),
-		//'homeUrl'=>'servicelist/index',
-		//'homeUrl'=>array('site/login')
-        //'brandUrl' => Yii::$app->sethomeUrl('servicelist/index'),
-		//'brandUrl' => Yii::$app->homeUrl,
-		'brandUrl' => 'index.php?r=servicelist%2Findex',
-		//'brandUrl' => Yii::$app->redirect->'servicelist/index',
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            //['label' => 'Home', 'url' => ['/site/index']],
-            //['label' => 'About', 'url' => ['/site/about']],
-            //['label' => 'Contact', 'url' => ['/site/contact']],
-			['label' => 'Service List Page', 'url' => ['/servicelist/index']],
-			//['label' => 'Add client Page', 'url' => ['/site/entry']],
-			['label' => 'Add client Page', 'url' => ['/client/create']],
-			['label' => 'Add service Page', 'url' => ['/servicelist/create']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
+    if(!Yii::$app->user->isGuest) {
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+    		//Yii::$app->sethomeUrl('/'),
+    		//'homeUrl'=>'servicelist/index',
+    		//'homeUrl'=>array('site/login')
+            //'brandUrl' => Yii::$app->sethomeUrl('servicelist/index'),
+    		//'brandUrl' => Yii::$app->homeUrl,
+    		'brandUrl' => 'index.php?r=servicelist%2Findex',
+    		//'brandUrl' => Yii::$app->redirect->'servicelist/index',
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                //['label' => 'Home', 'url' => ['/site/index']],
+                //['label' => 'About', 'url' => ['/site/about']],
+                //['label' => 'Contact', 'url' => ['/site/contact']],
+    			['label' => 'Service List Page', 'url' => ['/servicelist/index']],
+    			//['label' => 'Add client Page', 'url' => ['/site/entry']],
+    			['label' => 'Add client Page', 'url' => ['/client/create']],
+    			['label' => 'Add service Page', 'url' => ['/servicelist/create']],
+                Yii::$app->user->isGuest ? (
+                    ['label' => 'Login', 'url' => ['/site/login']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
                 )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
+            ],
+        ]);
+        NavBar::end();
+    }
     ?>
 
     <div class="container">

@@ -33,7 +33,7 @@ $this->title = 'Service List Page';
 		
     </p>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['id' => 'pjax-container']); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -66,7 +66,29 @@ $this->title = 'Service List Page';
 			],
 			//'user_id',
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update} {delete}', 'header' => 'Action'],
+             //['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update} {delete}', 'header' => 'Action'],
+			['class' => 'yii\grid\ActionColumn',
+			'buttons' => [
+                    'delete' => function ($url) {
+                        return Html::a(Yii::t('yii', 'Delete'), '#', [
+                            'title' => Yii::t('yii', 'Delete'),
+                            'aria-label' => Yii::t('yii', 'Delete'),
+                            'onclick' => "
+                                if (confirm('Are you sure you want to delete this item?')) {
+                                    $.ajax('$url', {
+                                        type: 'POST'
+                                    }).done(function(data) {
+                                        $.pjax.reload({container: '#pjax-container'});
+                                    });
+                                }
+                                return false;
+                            ",
+                        ]);
+                    },
+                ],
+            'header' => 'Action'
+			],
+
         ],
     ]); ?>
 

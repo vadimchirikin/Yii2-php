@@ -36,6 +36,7 @@ use yii\web\Request;
  *                 'label' => 'Name',
  *             ],
  *         ],
+ *      'defaultOrder' => ['first_name' => SORT_ASC, 'last_name' => SORT_ASC],
  *     ]);
  *
  *     $models = Article::find()
